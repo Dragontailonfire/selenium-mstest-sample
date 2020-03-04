@@ -1,6 +1,6 @@
 ﻿namespace Pages.ProductPage
 {
-    public class ChromeElementLocators : IElementLocators
+    public class ChromeProductPageElements : IProductPageElements
     {
         public string QuantityTextBoxId => "quantity_wanted";
 

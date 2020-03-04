@@ -8,11 +8,11 @@ namespace Pages.ProductPage
     public class ProductPage : Page
     {
         #region Fields
-        private IElementLocators _elementLocators;
-        private static Dictionary<string, IElementLocators> browserLocators = new Dictionary<string, IElementLocators>
+        private readonly IProductPageElements _pageElements;
+        private static readonly Dictionary<string, IProductPageElements> browserElementLocators = new Dictionary<string, IProductPageElements>
         {
-            {"Chrome", new ChromeElementLocators() },
-            {"IE", new ChromeElementLocators() }
+            {"Chrome", new ChromeProductPageElements() },
+            {"IE", new ChromeProductPageElements() }
         };
         #endregion
         #region Constructors
@@ -20,35 +20,35 @@ namespace Pages.ProductPage
         {
 
         }
-        private ProductPage(IElementLocators ElementLocators)
+        private ProductPage(IProductPageElements PageElements)
         {
-            _elementLocators = ElementLocators;
+            _pageElements = PageElements;
         }
         #endregion
         public static ProductPage GetProductPage()
         {
-            return new ProductPage(GetBrowserSpecificLocator());
+            return new ProductPage(GetBrowserPageElement());
         }
-        public static IElementLocators GetBrowserSpecificLocator()
+        public static IProductPageElements GetBrowserPageElement()
         {
-            return browserLocators[Browser.BrowserName];
+            return browserElementLocators[Browser.BrowserName];
         }
         #region Test steps
         public ProductPage GiveProductQuantity(string quantity)
         {
-            By locator = By.Id(_elementLocators.QuantityTextBoxId);
+            By locator = By.Id(_pageElements.QuantityTextBoxId);
             EnterTextInThisField(locator, quantity);
             return this;
         }
         public ProductPage SelectProductSize(string size)
         {
-            By locator = By.Id(_elementLocators.SizeDropDownId);
+            By locator = By.Id(_pageElements.SizeDropDownId);
             MakeDropDownSelectionUsingText(locator, size);
             return this;
         }
         public void ClickAddToCart()
         {
-            By locator = By.XPath(_elementLocators.AddToCartButtonXpath);
+            By locator = By.XPath(_pageElements.AddToCartButtonXpath);
             IWebElement element = DriverWait.Until(e => e.FindElement(locator));
             Actions builder = new Actions(Driver);
             builder.MoveToElement(element).Click();
@@ -59,7 +59,7 @@ namespace Pages.ProductPage
         #region Verifications
         public ProductPage VerifyPageIsDisplayed(string product)
         {
-            By locator = By.XPath(_elementLocators.ProductHeadingXpath);
+            By locator = By.XPath(_pageElements.ProductHeadingXpath);
             GetElementAttribute(locator, "innerText").Should().Be(product);
             return this;
         }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pages.HomePage;
 using Pages.ProductPage;
+using Pages.ShoppingCartSummaryPage;
 
 namespace ApplicationTests
 {

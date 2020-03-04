@@ -1,6 +1,6 @@
 ﻿namespace Pages.ProductPage
 {
-    public interface IElementLocators
+    public interface IProductPageElements
     {
         string ProductHeadingXpath { get; }
         string QuantityTextBoxId { get; }

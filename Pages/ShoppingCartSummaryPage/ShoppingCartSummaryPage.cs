@@ -1,30 +1,49 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
+using System.Collections.Generic;
 
-namespace Pages
+namespace Pages.ShoppingCartSummaryPage
 {
     public class ShoppingCartSummaryPage : Page
     {
+        #region Fields
+        private readonly IShoppingCartSummaryPageElements _pageElements;
+        private static readonly Dictionary<string, IShoppingCartSummaryPageElements> browserElementLocators = new Dictionary<string, IShoppingCartSummaryPageElements>
+        {
+            {"Chrome", new ChromeShoppingCartSummaryPageElements() },
+            {"IE", new ChromeShoppingCartSummaryPageElements() }
+        };
+        #endregion
+        #region Constructors
         private ShoppingCartSummaryPage()
         {
 
         }
+        private ShoppingCartSummaryPage(IShoppingCartSummaryPageElements PageElements)
+        {
+            _pageElements = PageElements;
+        }
+        #endregion
         public static ShoppingCartSummaryPage GetShoppingCartSummaryPage()
         {
-            return new ShoppingCartSummaryPage();
+            return new ShoppingCartSummaryPage(GetBrowserPageElement());
+        }
+        public static IShoppingCartSummaryPageElements GetBrowserPageElement()
+        {
+            return browserElementLocators[Browser.BrowserName];
         }
         #region Verifications
         public ShoppingCartSummaryPage VerifyPageIsDisplayed()
         {
-            By locator = By.Id("cart_title");
-            IWebElement element = Driver.FindElement(locator);
+            By locator = By.Id(_pageElements.CartTitleId);
+            Driver.FindElement(locator);
             return this;
         }
         public void VerifyProductDetails(string name, string size, string quantity)
         {
-            By NameLocator = By.XPath("(//p[@class='product-name'])[2]");
+            By NameLocator = By.XPath(_pageElements.ProductNameXpath);
             IWebElement elementName = Driver.FindElement(NameLocator);
-            By SizeLocator = By.XPath("(//*[text()[contains(.,'Size')]])[2]");
+            By SizeLocator = By.XPath(_pageElements.ProductSizeXpath);
             IWebElement elementSize = Driver.FindElement(SizeLocator);
 
             //Quantity compared from element identification itself
