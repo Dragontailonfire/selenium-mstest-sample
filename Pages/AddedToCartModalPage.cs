@@ -5,13 +5,13 @@ namespace Pages
 {
     public class AddedToCartModalPage : Page
     {
-        private AddedToCartModalPage()
+        private AddedToCartModalPage(IWebDriver driver) : base(driver)
         {
 
         }
-        public static AddedToCartModalPage GetAddedToCartModalPage()
+        public static AddedToCartModalPage GetAddedToCartModalPage(IWebDriver driver)
         {
-            return new AddedToCartModalPage();
+            return new AddedToCartModalPage(driver);
         }
         #region Test steps
         public void ClickProceedToCheckout()

@@ -15,18 +15,14 @@ namespace Pages.ShoppingCartSummaryPage
         };
         #endregion
         #region Constructors
-        private ShoppingCartSummaryPage()
-        {
-
-        }
-        private ShoppingCartSummaryPage(IShoppingCartSummaryPageElements PageElements)
+        private ShoppingCartSummaryPage(IShoppingCartSummaryPageElements PageElements, IWebDriver driver) : base (driver)
         {
             _pageElements = PageElements;
         }
         #endregion
-        public static ShoppingCartSummaryPage GetShoppingCartSummaryPage()
+        public static ShoppingCartSummaryPage GetShoppingCartSummaryPage(IWebDriver driver)
         {
-            return new ShoppingCartSummaryPage(GetBrowserPageElement());
+            return new ShoppingCartSummaryPage(GetBrowserPageElement(), driver);
         }
         public static IShoppingCartSummaryPageElements GetBrowserPageElement()
         {
@@ -35,20 +31,17 @@ namespace Pages.ShoppingCartSummaryPage
         #region Verifications
         public ShoppingCartSummaryPage VerifyPageIsDisplayed()
         {
-            By locator = By.Id(_pageElements.CartTitleId);
-            Driver.FindElement(locator);
+            Driver.FindElement(_pageElements.CartTitle);
             return this;
         }
         public void VerifyProductDetails(string name, string size, string quantity)
         {
-            By NameLocator = By.XPath(_pageElements.ProductNameXpath);
-            IWebElement elementName = Driver.FindElement(NameLocator);
-            By SizeLocator = By.XPath(_pageElements.ProductSizeXpath);
-            IWebElement elementSize = Driver.FindElement(SizeLocator);
+            IWebElement elementName = Driver.FindElement(_pageElements.ProductName);
+            IWebElement elementSize = Driver.FindElement(_pageElements.ProductSize);
 
             //Quantity compared from element identification itself
             By QuantityLocator = By.XPath("//*[@class='cart_quantity_input form-control grey' and @value='" + quantity + "']");
-            IWebElement elementQuantity = Driver.FindElement(QuantityLocator);
+            _ = Driver.FindElement(QuantityLocator);
 
             //Take the entire text and take substring to get size and comapre
             string sizeText = elementSize.GetAttribute("innerText");

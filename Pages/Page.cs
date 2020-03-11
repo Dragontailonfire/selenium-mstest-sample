@@ -7,10 +7,11 @@ namespace Pages
     {
         protected IWebDriver Driver { get; }
         protected WebDriverWait DriverWait { get; }
-        protected Page()
+
+        protected Page(IWebDriver driver)
         {
-            Driver = DriverManager.Driver;
-            DriverWait = DriverManager.Wait;
+            Driver = driver;
+            DriverWait = new WebDriverWait(Driver, new System.TimeSpan(0, 0, 30));
         }
         #region Test steps
         public void EnterTextInThisField(By elementIdentifier, string textToEnter)

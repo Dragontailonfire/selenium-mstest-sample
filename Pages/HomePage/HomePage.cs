@@ -4,13 +4,13 @@ namespace Pages.HomePage
 {
     public class HomePage : Page
     {
-        private HomePage()
+        private HomePage(IWebDriver driver) : base(driver)
         {
 
         }
-        public static HomePage GetHomePage()
+        public static HomePage GetHomePage(IWebDriver driver)
         {
-            return new HomePage();
+            return new HomePage(driver);
         }
         #region Test steps
         public HomePage NavigateHere(string url)

@@ -1,0 +1,16 @@
+{
+  "AddTshirtToCartAndVerifyCheckoutPage": {
+    "MenuItem": "Women",
+    "ProductName": "Faded Short Sleeve T-shirts",
+    "ProductSize": "M",
+    "ProductQuantity": "2"
+  },
+  "exclude": [
+    "**/bin",
+    "**/bower_components",
+    "**/jspm_packages",
+    "**/node_modules",
+    "**/obj",
+    "**/platforms"
+  ]
+}

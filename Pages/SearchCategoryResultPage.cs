@@ -5,13 +5,13 @@ namespace Pages
 {
     public class SearchCategoryResultPage : Page
     {
-        private SearchCategoryResultPage()
+        private SearchCategoryResultPage(IWebDriver driver) : base(driver)
         {
 
         }
-        public static SearchCategoryResultPage GetSearchCategoryResultPage()
+        public static SearchCategoryResultPage GetSearchCategoryResultPage(IWebDriver driver)
         {
-            return new SearchCategoryResultPage();
+            return new SearchCategoryResultPage(driver);
         }
         #region Test steps
         public void OpenProduct(string product)

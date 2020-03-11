@@ -1,11 +1,13 @@
-﻿namespace Pages.ShoppingCartSummaryPage
+﻿using OpenQA.Selenium;
+
+namespace Pages.ShoppingCartSummaryPage
 {
     class ChromeShoppingCartSummaryPageElements : IShoppingCartSummaryPageElements
     {
-        public string CartTitleId => "cart_title";
+        public By CartTitle => By.Id("cart_title");
 
-        public string ProductNameXpath => "(//p[@class='product-name'])[2]";
+        public By ProductName => By.XPath("(//p[@class='product-name'])[2]");
 
-        public string ProductSizeXpath => "(//*[text()[contains(.,'Size')]])[2]";
+        public By ProductSize => By.XPath("(//*[text()[contains(.,'Size')]])[2]");
     }
 }

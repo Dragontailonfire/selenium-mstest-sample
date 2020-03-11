@@ -16,18 +16,14 @@ namespace Pages.ProductPage
         };
         #endregion
         #region Constructors
-        private ProductPage()
-        {
-
-        }
-        private ProductPage(IProductPageElements PageElements)
+        private ProductPage(IProductPageElements PageElements, IWebDriver driver) : base (driver)
         {
             _pageElements = PageElements;
         }
         #endregion
-        public static ProductPage GetProductPage()
+        public static ProductPage GetProductPage(IWebDriver driver)
         {
-            return new ProductPage(GetBrowserPageElement());
+            return new ProductPage(GetBrowserPageElement(), driver);
         }
         public static IProductPageElements GetBrowserPageElement()
         {
@@ -36,20 +32,17 @@ namespace Pages.ProductPage
         #region Test steps
         public ProductPage GiveProductQuantity(string quantity)
         {
-            By locator = By.Id(_pageElements.QuantityTextBoxId);
-            EnterTextInThisField(locator, quantity);
+            EnterTextInThisField(_pageElements.QuantityTextBox, quantity);
             return this;
         }
         public ProductPage SelectProductSize(string size)
         {
-            By locator = By.Id(_pageElements.SizeDropDownId);
-            MakeDropDownSelectionUsingText(locator, size);
+            MakeDropDownSelectionUsingText(_pageElements.SizeDropDown, size);
             return this;
         }
         public void ClickAddToCart()
         {
-            By locator = By.XPath(_pageElements.AddToCartButtonXpath);
-            IWebElement element = DriverWait.Until(e => e.FindElement(locator));
+            IWebElement element = DriverWait.Until(e => e.FindElement(_pageElements.AddToCartButton));
             Actions builder = new Actions(Driver);
             builder.MoveToElement(element).Click();
             IAction ClickAddToCart = builder.Build();
@@ -59,8 +52,7 @@ namespace Pages.ProductPage
         #region Verifications
         public ProductPage VerifyPageIsDisplayed(string product)
         {
-            By locator = By.XPath(_pageElements.ProductHeadingXpath);
-            GetElementAttribute(locator, "innerText").Should().Be(product);
+            GetElementAttribute(_pageElements.ProductHeading, "innerText").Should().Be(product);
             return this;
         }
         #endregion

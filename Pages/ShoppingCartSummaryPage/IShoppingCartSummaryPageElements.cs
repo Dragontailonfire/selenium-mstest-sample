@@ -1,9 +1,11 @@
-﻿namespace Pages.ShoppingCartSummaryPage
+﻿using OpenQA.Selenium;
+
+namespace Pages.ShoppingCartSummaryPage
 {
     public interface IShoppingCartSummaryPageElements
     {
-        string CartTitleId { get; }
-        string ProductNameXpath { get; }
-        string ProductSizeXpath { get; }
+        By CartTitle { get; }
+        By ProductName { get; }
+        By ProductSize { get; }
     }
 }

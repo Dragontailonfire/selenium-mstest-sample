@@ -1,10 +1,12 @@
-﻿namespace Pages.ProductPage
+﻿using OpenQA.Selenium;
+
+namespace Pages.ProductPage
 {
     public interface IProductPageElements
     {
-        string ProductHeadingXpath { get; }
-        string QuantityTextBoxId { get; }
-        string SizeDropDownId { get; }
-        string AddToCartButtonXpath { get; }
+        By ProductHeading { get; }
+        By QuantityTextBox { get; }
+        By SizeDropDown { get; }
+        By AddToCartButton { get; }
     }
 }
