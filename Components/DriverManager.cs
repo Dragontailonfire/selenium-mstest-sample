@@ -9,9 +9,9 @@ namespace Pages
 {
     public class DriverManager
     {
-        public static IWebDriver Driver => LaunchDriver();
+        public IWebDriver Driver => LaunchDriver();
 
-        private static IWebDriver LaunchDriver()
+        private IWebDriver LaunchDriver()
         {
             string browser = Browser.BrowserName;
             string browserPath = Directory.GetCurrentDirectory() + Browser.GetBrowserPath();
